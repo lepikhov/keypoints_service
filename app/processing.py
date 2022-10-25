@@ -1,4 +1,5 @@
 import io
+import json
 import os
 import string
 import time
@@ -9,13 +10,13 @@ import time
 
 
 def prepare_image(img_bytes):
+    #print(img_bytes)
     pass
 
 def predict_result(img):
-    keypoints = [
-        [1, 2],
-        [3, 4],
-        [5, 6]
-    ]
+
+    file = open("app/kp.json", "r")
+    
+    keypoints = json.loads(file.read())
 
     return keypoints

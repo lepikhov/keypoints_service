@@ -22,7 +22,7 @@ def infer_image():
     img = prepare_image(img_bytes)
 
     # Return on a JSON format
-    return jsonify(prediction=predict_result(img))
+    return jsonify(predict_result(img))
     
 
 @app.route('/', methods=['GET'])
