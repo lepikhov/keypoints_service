@@ -1,7 +1,6 @@
-from flask import Flask, jsonify, request
-
 from app import app
-from app.processing import predict_result, prepare_image
+from app.processing import predict_result
+from flask import Flask, jsonify, request
 
 
 @app.route('/predict', methods=['POST'])
@@ -20,10 +19,10 @@ def infer_image():
     img_bytes = file.read()
 
     # Prepare the image
-    img = prepare_image(img_bytes)
+    #img = prepare_image(img_bytes)
  
     # Return on a JSON format
-    return jsonify(predict_result(img))
+    return jsonify(predict_result(img_bytes))
     
 
 

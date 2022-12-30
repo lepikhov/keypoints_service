@@ -5,26 +5,28 @@ import string
 import time
 
 import numpy as np
+from app.calculator import calcs
+from app.config import W1, W2
 from PIL import Image
 
-from app.calculator import calc
 
-
-def prepare_image(img_bytes):
-
-    img = Image.open(io.BytesIO(img_bytes))
-    calc.set_img_size(img.size)
-    img = img.resize((224, 224))
-    img = np.array(img)
-    img = np.expand_dims(img, 0)
-    return img
-
-def predict_result(img):
+def predict_result(img_bytes):
 
     #file = open("app/kp.json", "r")
 
     #keypoints = json.loads(file.read())
     
-    keypoints = calc.predict(img) 
+    img = calcs[0].prepare_image(img_bytes)
+    kp1 = calcs[0].predict(img) 
+
+    img = calcs[1].prepare_image(img_bytes)
+    kp2 = calcs[1].predict(img)    
+
+    size = min(len(kp1), len(kp2))
+
+    keypoints=[]
+
+    for i in range(size):
+        keypoints.append([(kp1[i][0]*W1 + kp2[i][0]*W2)/100, (kp1[i][1]*W1 + kp2[i][1]*W2)/100])
 
     return keypoints
